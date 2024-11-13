@@ -1,4 +1,3 @@
-
 body {
     font-family: Arial, sans-serif;
     margin: 1em;
@@ -7,10 +6,31 @@ body {
 
 .feedback {
     font-weight: bold;
-    color: #007bff;
+    font-size: 1.2em;
+    color: #28a745;
 }
-#guessInput{
+
+.error {
+    font-size: 1em;
+    color: #dc3545;
+}
+
+#guessInput {
     text-align: center;
-    padding-left: 0;
-    padding-right: 0;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+.instructions ul {
+    padding: 0;
+    list-style-type: none;
+    padding-left: 1.2em;
+    font-size: 0.95em;
+}
+
+#guessList .list-group-item {
+    font-size: 0.9em;
+    background-color: #f8f9fa;
+    border: none;
+    color: #333;
 }

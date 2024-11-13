@@ -53,11 +53,20 @@ function submitGuess() {
 
 
 function resetGame() {
+    document.getElementById('targetNumberDisplay').textContent = ``;
     targetNumber = generateNumber();
     guesses = [];
     document.getElementById('guessInput').value = '';
     document.getElementById('feedback').textContent = '';
     document.getElementById('error').textContent = '';
     document.getElementById('guessList').innerHTML = '';
+}
+
+function showAnswer() {
     document.getElementById('targetNumberDisplay').textContent = `Generated Number: ${targetNumber}`;
+    guesses = [];
+    document.getElementById('guessInput').value = '';
+    document.getElementById('feedback').textContent = '';
+    document.getElementById('error').textContent = '';
+    document.getElementById('guessList').innerHTML = '';
 }
