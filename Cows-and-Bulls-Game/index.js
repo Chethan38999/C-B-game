@@ -11,7 +11,7 @@ function generateNumber() {
 }
 
 function validateGuess(guess) {
-    if (guess.length !== 4 || isNaN(guess)) return "Input must be a 4-digit number.";
+    if (guess.length !== 4 || isNaN(guess)) return "Enter 4-digit number.";
     if (new Set(guess).size !== 4) return "All digits must be unique.";
     return null;
 }
@@ -51,7 +51,6 @@ function submitGuess() {
     feedbackDiv.textContent = bulls === 4 ? "Congratulations! You've guessed the number!" : '';
 }
 
-
 function resetGame() {
     document.getElementById('targetNumberDisplay').textContent = ``;
     targetNumber = generateNumber();
@@ -63,7 +62,7 @@ function resetGame() {
 }
 
 function showAnswer() {
-    document.getElementById('targetNumberDisplay').textContent = `Generated Number: ${targetNumber}`;
+    document.getElementById('targetNumberDisplay').textContent = `Correct Number: ${targetNumber}`;
     guesses = [];
     document.getElementById('guessInput').value = '';
     document.getElementById('feedback').textContent = '';
