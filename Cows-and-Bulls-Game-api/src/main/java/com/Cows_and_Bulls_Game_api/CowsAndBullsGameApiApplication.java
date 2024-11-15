@@ -9,5 +9,4 @@ public class CowsAndBullsGameApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CowsAndBullsGameApiApplication.class, args);
 	}
-
 }

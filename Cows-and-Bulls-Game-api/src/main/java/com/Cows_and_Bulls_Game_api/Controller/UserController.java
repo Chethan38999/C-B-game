@@ -17,7 +17,6 @@ public class UserController {
     @Autowired
     private UserRepo userRepository;
 
-    // Register a new user
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
@@ -26,18 +25,16 @@ public class UserController {
         if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already exists.");
         }
-
         userRepository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully.");
     }
 
-    // Login user
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody User user) {
+    public ResponseEntity<?> loginUser(@RequestBody User user) {
         Optional<User> existingUser = userRepository.findByUsername(user.getUsername());
         if (existingUser.isEmpty() || !existingUser.get().getPassword().equals(user.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
         }
-        return ResponseEntity.ok("Login successful.");
+        return ResponseEntity.ok(existingUser.get());
     }
 }

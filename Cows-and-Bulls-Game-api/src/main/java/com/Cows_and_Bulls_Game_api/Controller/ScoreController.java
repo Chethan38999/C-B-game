@@ -19,7 +19,6 @@ public class ScoreController {
     private ScoreRepo scoreRepository;
     private UserRepo userRepository;
 
-    // Add a new score for a user
     @PostMapping("/add")
     public ResponseEntity<String> addScore(@RequestParam Long userId, @RequestBody Score score) {
         Optional<User> user = userRepository.findById(userId);
@@ -32,14 +31,12 @@ public class ScoreController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Score added successfully.");
     }
 
-    // Get all scores
     @GetMapping("/all")
     public ResponseEntity<List<Score>> getAllScores() {
         List<Score> scores = scoreRepository.findAll();
         return ResponseEntity.ok(scores);
     }
 
-    // Get scores by user ID
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Score>> getScoresByUserId(@PathVariable Long userId) {
         Optional<User> user = userRepository.findById(userId);
