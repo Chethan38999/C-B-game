@@ -16,7 +16,7 @@ body {
 .header h1 {
   margin-right: 0.3em; 
   margin-left: 1.4em;
-  color: #78B3CE;
+  color: black;
   font-weight: bold;
   font-family: "Mukta", sans-serif; 
 }
@@ -33,7 +33,7 @@ body {
   width: 100%;
   max-width: 500px;
   margin: auto;
-  margin-top: 10em;
+  margin-top: 4.5em;
   font-family: "Mukta", sans-serif;
 }
 
