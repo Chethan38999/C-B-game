@@ -1,6 +1,38 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #B59F78;
+    background-color: #78B3CE;
+}
+
+#navbar {
+    background-color: #78B3CE;
+    color: white;
+}
+
+.navbar-brand, .nav-link {
+    color: white;
+}
+
+.nav-item {
+    background-color: #FF6500;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card-container .card {
+    background-color: #DFF2EB;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.instructions ul {
+    padding-left: 20px;
 }
 
 .feedback {
@@ -8,47 +40,23 @@ body {
     font-size: 1.2em;
     color: #28a745;
 }
-#navbar {
-    background-color: #78B3CE;
-    color: white;
-}
-.nav-link {
-    color: white;
-}
+
 .error {
     font-size: 1em;
     color: #dc3545;
 }
-#guessInput {
-    text-align: center;
-    padding: 10px;
-    font-size: 1.2em;
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
 }
 
-.instructions ul {
-    padding: 0;
-    list-style-type: none;
-    padding-left: 1.2em;
-    font-size: 0.95em;
-}
-
-#guessList .list-group-item {
-    font-size: 0.9em;
-    background-color: #f8f9fa;
-    border: none;
-    color: #333;
-}
-.image-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: 20px;
-}
-.game-instructions {
-    background-color: #f8f9fa;
-    max-width: 250px;
-    padding: 15px;
-    border-radius: 8px;
+@media (min-width: 768px) {
+    .card-container {
+        flex-direction: row;
+    }
+    .card {
+        width: 100%;
+    }
 }

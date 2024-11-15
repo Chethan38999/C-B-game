@@ -28,7 +28,7 @@ function calculateCowsAndBulls(guess) {
     return { cows, bulls };
 }
 
-function submitGuess() {
+async function submitGuess() {
     const guess = document.getElementById('guessInput').value;
     const errorDiv = document.getElementById('error');
     const feedbackDiv = document.getElementById('feedback');
@@ -48,10 +48,76 @@ function submitGuess() {
     guessList.innerHTML = guesses.map(({ guess, cows, bulls }) =>
         `<li class="list-group-item">Guessed Number: ${guess} <br> Cows: ${cows}, Bulls: ${bulls}</li>`
     ).join('');
-    feedbackDiv.textContent = bulls === 4 ? "Congratulations! You've guessed the number!" : '';
+
+    if (bulls === 4) {
+        feedbackDiv.textContent = "Congratulations! You've guessed the number!";
+        
+        const userId = localStorage.getItem('userId');
+        if (userId) {
+            const score = {
+                user: { userId: userId },
+                noOfGuesses: guesses.length,
+                result: "Won"
+            };
+            await saveScore(userId, score);
+            loadScores(userId); 
+        }
+    }
+}
+
+async function saveScore(userId, score) {
+    try {
+        const response = await fetch(`http://localhost:8080/scores/add?userId=${userId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(score)
+        });
+
+        if (!response.ok) {
+            const message = await response.text();
+            console.error('Failed to save score:', message);
+        }
+    } catch (error) {
+        console.error('Error saving score:', error);
+    }
+}
+
+async function loadScores(userId) {
+    try {
+        const response = await fetch(`http://localhost:8080/scores/user/${userId}`);
+        if (!response.ok) {
+            console.error('Failed to fetch scores');
+            return;
+        }
+
+        const scores = await response.json();
+        const scoreTableBody = document.getElementById('scoreTableBody');
+        scoreTableBody.innerHTML = scores.map((score, index) =>
+            `<tr>
+                <td>${index + 1}</td>
+                <td>${score.noOfGuesses}</td>
+                <td>${score.result}</td>
+            </tr>`
+        ).join('');
+    } catch (error) {
+        console.error('Error loading scores:', error);
+    }
 }
 
 function resetGame() {
+    const userId = localStorage.getItem('userId');
+    if (userId && guesses.length > 0) {
+        const score = {
+            user: { userId: userId },
+            noOfGuesses: guesses.length,
+            result: "Give Up"
+        };
+        saveScore(userId, score);
+        loadScores(userId);
+    }
+
     document.getElementById('targetNumberDisplay').textContent = ``;
     targetNumber = generateNumber();
     guesses = [];
@@ -62,10 +128,22 @@ function resetGame() {
 }
 
 function showAnswer() {
+    const userId = localStorage.getItem('userId');
+    if (userId && guesses.length > 0) {
+        const score = {
+            user: { userId: userId },
+            noOfGuesses: guesses.length,
+            result: "Give Up"
+        };
+        saveScore(userId, score);
+        loadScores(userId);
+    }
     document.getElementById('targetNumberDisplay').textContent = `Correct Number: ${targetNumber}`;
-    guesses = [];
-    document.getElementById('guessInput').value = '';
-    document.getElementById('feedback').textContent = '';
-    document.getElementById('error').textContent = '';
-    document.getElementById('guessList').innerHTML = '';
 }
+
+window.onload = function() {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+        loadScores(userId);
+    }
+};
