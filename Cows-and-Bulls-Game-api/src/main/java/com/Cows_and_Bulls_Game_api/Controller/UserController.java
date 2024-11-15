@@ -20,10 +20,10 @@ public class UserController {
     // Register a new user
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
-        if (userRepository.findByEmail(user.getemail()).isPresent()) {
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already exists.");
         }
-        if (userRepository.findByUsername(user.getusername()).isPresent()) {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username already exists.");
         }
 
@@ -34,8 +34,8 @@ public class UserController {
     // Login user
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody User user) {
-        Optional<User> existingUser = userRepository.findByUsername(user.getusername());
-        if (existingUser.isEmpty() || !existingUser.get().getpassword().equals(user.getpassword())) {
+        Optional<User> existingUser = userRepository.findByUsername(user.getUsername());
+        if (existingUser.isEmpty() || !existingUser.get().getPassword().equals(user.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
         }
         return ResponseEntity.ok("Login successful.");

@@ -27,7 +27,7 @@ public class ScoreController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
         }
 
-        score.setUser(user);
+        score.setUser(user.get());
         scoreRepository.save(score);
         return ResponseEntity.status(HttpStatus.CREATED).body("Score added successfully.");
     }
